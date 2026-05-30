@@ -1,0 +1,263 @@
+.card {
+  background: #110D1E;
+  border: 1px solid #2D2450;
+  border-radius: 24px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    box-shadow: 0 4px 24px rgba(124, 58, 237, 0.15);
+  }
+}
+
+/* ── Top row ─────────────────────────── */
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #2D2450;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.identity {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.displayName {
+  font-family: 'ClashDisplay', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #F7F4FF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.displayNameAnon {
+  color: #6B5FA6;
+  font-style: italic;
+}
+
+.city {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  color: #B8AEE0;
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  border-radius: 9999px;
+  padding: 2px 8px 2px 4px;
+}
+
+.badgePhone {
+  background: rgba(167, 139, 250, 0.12);
+  color: #A78BFA;
+}
+
+.badgeId {
+  background: rgba(124, 58, 237, 0.15);
+  color: #7C3AED;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1A1530;
+  border: 1px solid #2D2450;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  color: #B8AEE0;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.badge:hover .tooltip { display: block; }
+
+/* ── Chips row ───────────────────────── */
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.chip {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  color: #B8AEE0;
+  background: #2D2450;
+  border-radius: 9999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.chipMore {
+  color: #6B5FA6;
+}
+
+.chipExperience {
+  background: #1A1530;
+  color: #A78BFA;
+  border-radius: 9999px;
+  padding: 4px 10px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+}
+
+/* ── Compatibility bar ───────────────── */
+
+.compatSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compatLabel {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  color: #B8AEE0;
+}
+
+.compatScore {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  color: #F7F4FF;
+  font-weight: 500;
+}
+
+.barTrack {
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: #2D2450;
+  overflow: hidden;
+  position: relative;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: #22C55E;
+  transition: width 600ms ease-out;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.barConflict {
+  height: 100%;
+  border-radius: 9999px;
+  background: #F59E0B;
+  position: absolute;
+  right: 0;
+  top: 0;
+  min-width: 12px;
+  max-width: 20%;
+}
+
+/* ── Conflict warning ────────────────── */
+
+.conflictWarning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid #F59E0B;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.conflictText {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 12px;
+  color: #F59E0B;
+}
+
+/* ── Footer ──────────────────────────── */
+
+.memberSince {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  color: #6B5FA6;
+}
+
+/* ── Action button ───────────────────── */
+
+.connectBtn {
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.connectBtnPrimary {
+  background: #7C3AED;
+  color: #fff;
+}
+
+.connectBtnPrimary:hover { background: #8B46FF; }
+
+.connectBtnSecondary {
+  background: transparent;
+  color: #A78BFA;
+  border: 1px solid #A78BFA;
+}
+
+.connectBtnSecondary:hover { background: rgba(167, 139, 250, 0.08); }

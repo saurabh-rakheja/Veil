@@ -1,0 +1,19 @@
+/* Legacy variable aliases so existing CSS modules still compile */
+:root {
+  --color-abyss:     #0a1a21;
+  --color-void:      #11272f;
+  --color-dusk:      #18323c;
+  --color-twilight:  #21414c;
+  --color-moonlight: #ecfdf6;
+  --color-mist:      #bdd3cb;
+  --color-dusk-text: #7e988e;
+  --color-violet:    #2fbf9f;
+  --color-amethyst:  #4fe2bd;
+  --color-rose:      #ff96a6;
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   350ms;
+  --header-height:    64px;
+  --bottom-nav-height: 64px;
+}

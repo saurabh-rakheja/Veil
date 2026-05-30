@@ -1,0 +1,65 @@
+# ========================
+# Environment Variables — NEVER commit these
+# ========================
+.env
+.env.local
+.env.development
+.env.production
+ChatApp/.env
+client/.env
+
+# ========================
+# Dependencies
+# ========================
+node_modules/
+client/node_modules/
+admin/node_modules/
+ChatApp/node_modules/
+shared/node_modules/
+
+# ========================
+# Build Outputs
+# ========================
+dist/
+build/
+.next/
+out/
+client/dist/
+admin/dist/
+
+# ========================
+# Logs
+# ========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# OS & System Files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Editor & IDE
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ========================
+# Testing Artifacts
+# ========================
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# ========================
+# Misc
+# ========================
+.cache/
+coverage/

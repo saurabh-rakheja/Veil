@@ -1,0 +1,16 @@
+.layout {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding-top: var(--header-height);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-bottom: var(--bottom-nav-height);
+  }
+}

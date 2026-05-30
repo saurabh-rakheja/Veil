@@ -1,0 +1,153 @@
+.page {
+  min-height: 100vh;
+  background: #0A0612;
+  padding: 0 0 64px;
+}
+
+.inner {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heroHeading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: #F7F4FF;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.heroSub {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  color: #B8AEE0;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 520px;
+}
+
+/* ── Sections ─────────────────────────────────────────────── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionHeading {
+  font-family: 'ClashDisplay', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #F7F4FF;
+  margin: 0;
+}
+
+/* ── Resource cards ───────────────────────────────────────── */
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #1A1530;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  padding: 16px;
+  text-decoration: none;
+  transition: border-color 150ms, background 150ms;
+}
+
+.card:hover {
+  border-color: #7C3AED;
+  background: #1F193A;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cardTitle {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #A78BFA;
+}
+
+.cardIcon {
+  color: #6B5FA6;
+  flex-shrink: 0;
+}
+
+.cardDesc {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  color: #B8AEE0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── How Loom protects you ────────────────────────────────── */
+
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bullet {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #B8AEE0;
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+}
+
+.bullet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+}
+
+/* ── Emergency footer ─────────────────────────────────────── */
+
+.emergency {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  color: #B8AEE0;
+  font-style: italic;
+  text-align: center;
+  padding: 24px 0 0;
+  border-top: 1px solid #2D2450;
+  margin: 0;
+}

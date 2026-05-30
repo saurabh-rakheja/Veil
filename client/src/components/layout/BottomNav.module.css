@@ -1,0 +1,75 @@
+.nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bottom-nav-height);
+  background: rgba(17, 13, 30, 0.95);
+  border-top: 1px solid rgba(124, 58, 237, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: flex;
+    align-items: stretch;
+  }
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--color-dusk-text);
+  padding: 8px 4px;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.item:hover {
+  color: var(--color-mist);
+}
+
+.active {
+  color: var(--color-amethyst);
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ── Badge on Requests icon ──────────────────────────────── */
+
+.iconWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  background: #7C3AED;
+  border-radius: 9999px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 2px solid rgba(17, 13, 30, 0.95);
+}

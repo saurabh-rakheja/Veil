@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "PowerShell($response = Invoke-WebRequest -Uri \"https://api.anthropic.com/v1/design/h/ASbZLgiCmta5lkOqmaR7mg?open_file=Loom.html\" -MaximumRedirection 5; $content = $response.Content; Write-Output \"Content Length: $\\($content.Length\\)\"; Write-Output \"First 3000 chars:\"; Write-Output $content.Substring\\(0, [Math]::Min\\(3000, $content.Length\\)\\))",
+      "Bash(curl -s -L \"https://api.anthropic.com/v1/design/h/ASbZLgiCmta5lkOqmaR7mg?open_file=Loom.html\")",
+      "Bash(curl -s -L --compressed \"https://api.anthropic.com/v1/design/h/ASbZLgiCmta5lkOqmaR7mg?open_file=Loom.html\")"
+    ]
+  }
+}

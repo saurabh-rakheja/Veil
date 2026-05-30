@@ -1,0 +1,29 @@
+{
+  "name": "loom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --names \"SERVER,CLIENT,ADMIN\" --prefix-colors \"magenta,cyan,yellow\" \"npm run server\" \"npm run client\" \"npm run admin\"",
+    "dev:watch": "concurrently --names \"SERVER,CLIENT,ADMIN\" --prefix-colors \"magenta,cyan,yellow\" \"npm run server:watch\" \"npm run client\" \"npm run admin\"",
+    "server": "cd ChatApp && node server.js",
+    "server:watch": "cd ChatApp && npx nodemon server.js",
+    "client": "cd client && npm run dev",
+    "admin": "cd admin && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.1",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.2",
+    "concurrently": "^9.2.1",
+    "playwright": "^1.59.1"
+  }
+}

@@ -1,0 +1,500 @@
+.page {
+  min-height: 100vh;
+  background: #0A0612;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 48px;
+}
+
+.topBar {
+  width: 100%;
+  max-width: 480px;
+  padding: 20px 16px 0;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #B8AEE0;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backBtn:hover { background: #1A1530; }
+
+.inner {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Screen 3 ─────────────────────────────────────────────── */
+
+.heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: #F7F4FF;
+  line-height: 1.2;
+}
+
+.messageCard {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #1A1530;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.messageLabel {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 11px;
+  color: #6B5FA6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.messageText {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #F7F4FF;
+  line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Compatibility panel ─────────────────────────────────── */
+
+.compatPanel {
+  background: #1A1530;
+  border-radius: 16px;
+  border-top: 2px solid #A78BFA;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compatRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.compatLabel { font-family: 'Satoshi', sans-serif; font-size: 12px; color: #B8AEE0; }
+.compatScore { font-family: 'ClashDisplay', sans-serif; font-size: 28px; color: #F7F4FF; }
+
+.barTrack {
+  width: 100%;
+  height: 8px;
+  background: #2D2450;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+}
+
+.barFill {
+  height: 100%;
+  background: linear-gradient(90deg, #7C3AED, #A78BFA);
+  border-radius: 9999px;
+  transition: width 600ms ease-out;
+}
+
+.barConflict {
+  height: 100%;
+  background: #F59E0B;
+}
+
+.sharedHeading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 12px;
+  color: #B8AEE0;
+  margin-top: 4px;
+}
+
+.sharedChips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.sharedChip {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 12px;
+  color: #0A0612;
+  background: #22C55E;
+  border-radius: 9999px;
+  padding: 3px 10px;
+}
+
+.conflictCard {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.conflictTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #F59E0B;
+  margin-bottom: 6px;
+}
+
+.conflictItem {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 12px;
+  color: #F59E0B;
+  padding-left: 22px;
+}
+
+/* ── View profile link ───────────────────────────────────── */
+
+.viewProfileBtn {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #A78BFA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  transition: background 150ms;
+}
+
+.viewProfileBtn:hover { background: #1A1530; }
+
+/* ── Action buttons ──────────────────────────────────────── */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acceptBtn {
+  width: 100%;
+  height: 52px;
+  background: #7C3AED;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform  150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.acceptBtn:hover:not(:disabled) { background: #8B46FF; }
+.acceptBtn:active:not(:disabled) { transform: scale(0.98); }
+.acceptBtn:disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
+
+.declineBtn {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  color: #B8AEE0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  transition: background 150ms;
+}
+
+.declineBtn:hover { background: #1A1530; }
+
+/* ── Modal ───────────────────────────────────────────────── */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 18, 0.75);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+  padding: 0 16px 32px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 400px;
+  background: #110D1E;
+  border: 1px solid #2D2450;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideUp 200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modalText {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #B8AEE0;
+  line-height: 1.5;
+}
+
+.modalConfirmBtn {
+  width: 100%;
+  height: 48px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #EF4444;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FCA5A5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms;
+}
+
+.modalConfirmBtn:hover { background: rgba(239, 68, 68, 0.2); }
+
+.modalCancelBtn {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #B8AEE0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms;
+}
+
+.modalCancelBtn:hover { background: #1A1530; }
+
+/* ── Profile overlay ─────────────────────────────────────── */
+
+.overlayBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 18, 0.75);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.overlay {
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  background: #110D1E;
+  border: 1px solid #2D2450;
+  border-radius: 20px 20px 0 0;
+  overflow-y: auto;
+  padding: 20px;
+  animation: slideUp 250ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.overlayHandle {
+  width: 40px;
+  height: 4px;
+  background: #2D2450;
+  border-radius: 9999px;
+  align-self: center;
+  margin-bottom: 4px;
+}
+
+.overlayCloseBtn {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #B8AEE0;
+  transition: background 150ms;
+}
+
+.overlayCloseBtn:hover { background: #1A1530; }
+
+/* ── Screen 4 — Accepted animation ──────────────────────── */
+
+.acceptedPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #0A0612;
+  padding: 32px 20px;
+}
+
+.orbStage {
+  position: relative;
+  width: 200px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.orbA, .orbB {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  transition: left 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.orbA {
+  background: linear-gradient(135deg, #7C3AED, #A78BFA);
+  left: 30%;
+}
+
+.orbB {
+  background: linear-gradient(135deg, #BE185D, #F472B6);
+  right: 30%;
+  left: auto;
+}
+
+.orbA.moving { left: calc(50% - 14px); }
+.orbB.moving { right: calc(50% - 14px); }
+
+.pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.3);
+  animation: expandPulse 300ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes expandPulse {
+  from { width: 0; height: 0; opacity: 1; }
+  to   { width: 120px; height: 120px; opacity: 0; }
+}
+
+.acceptedText {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: #F7F4FF;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  line-height: 1.2;
+}
+
+.acceptedText.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.acceptedSub {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #B8AEE0;
+  text-align: center;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
+
+.acceptedSub.visible { opacity: 1; }
+
+.actionCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 32px;
+}
+
+.actionCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #1A1530;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #F7F4FF;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 300ms ease-out, background 150ms;
+}
+
+.actionCard.visible { opacity: 1; }
+.actionCard:hover { background: #2D2450; }
+
+.actionCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(167, 139, 250, 0.1);
+  color: #A78BFA;
+  flex-shrink: 0;
+}
+
+/* ── Dots loading ────────────────────────────────────────── */
+
+.dots { display: flex; align-items: center; gap: 6px; }
+.dot {
+  width: 6px; height: 6px;
+  background: #fff; border-radius: 50%;
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1); }
+}

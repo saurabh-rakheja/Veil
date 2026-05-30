@@ -1,0 +1,130 @@
+.page {
+  min-height: 100vh;
+  background: #0A0612;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.inner {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.lockIcon {
+  color: #B8AEE0;
+  flex-shrink: 0;
+}
+
+.heading {
+  font-family: 'ClashDisplay', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #F7F4FF;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.body {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  color: #B8AEE0;
+  line-height: 1.7;
+  text-align: left;
+  margin: 0;
+  width: 100%;
+}
+
+/* ── Consent checkbox ────────────────────────────────────── */
+
+.checkLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  padding: 16px;
+  background: #1A1530;
+  border: 1px solid #2D2450;
+  border-radius: 12px;
+  transition: border-color 150ms;
+}
+
+.checkLabel:hover { border-color: #7C3AED; }
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: #7C3AED;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.checkText {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #F7F4FF;
+  line-height: 1.5;
+}
+
+/* ── Error banner ────────────────────────────────────────── */
+
+.errorBanner {
+  width: 100%;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  color: #FCA5A5;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: left;
+  margin: 0;
+}
+
+/* ── Action buttons ──────────────────────────────────────── */
+
+.enableBtn {
+  width: 100%;
+  height: 52px;
+  background: #7C3AED;
+  border-radius: 12px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.enableBtn:hover:not(:disabled) { background: #8B46FF; }
+
+.enableBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.backBtn {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: #6B5FA6;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  transition: color 150ms;
+}
+
+.backBtn:hover { color: #B8AEE0; }

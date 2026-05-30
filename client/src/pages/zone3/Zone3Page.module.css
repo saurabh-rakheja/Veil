@@ -1,0 +1,42 @@
+.page {
+  min-height: 100vh;
+  background: #0A0612;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.inner {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.heading {
+  font-family: 'ClashDisplay', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #F7F4FF;
+  margin: 0;
+}
+
+.body {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  color: #B8AEE0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.note {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  color: #6B5FA6;
+  line-height: 1.6;
+  margin: 0;
+}
