@@ -4,6 +4,8 @@ import { useAuth } from '@clerk/clerk-react'
 import * as jdenticon from 'jdenticon'
 import ReportButton from '../../components/reporting/ReportButton'
 
+const API = import.meta.env.VITE_API_URL
+
 const EXP_LABELS = {
   curious_exploring: 'Newly curious',
   some_experience:   'Exploring',
@@ -72,8 +74,8 @@ export default function ProfileViewPage() {
         const token   = await getToken()
         const headers = { Authorization: `Bearer ${token}` }
         const [profileRes, connsRes] = await Promise.all([
-          fetch(`/api/users/${userId}/public`, { headers }),
-          fetch('/api/connections/mine',        { headers }),
+          fetch(`${API}/api/users/${userId}/public`, { headers }),
+          fetch(`${API}/api/connections/mine`,        { headers }),
         ])
         if (!profileRes.ok) throw new Error()
         const profileData = await profileRes.json()
@@ -95,7 +97,7 @@ export default function ProfileViewPage() {
     setWithdrawing(true)
     try {
       const token = await getToken()
-      await fetch(`/api/handshake/${profile.handshakeId}/withdraw`, {
+      await fetch(`${API}/api/handshake/${profile.handshakeId}/withdraw`, {
         method: 'POST', headers: { Authorization: `Bearer ${token}` },
       })
       setProfile(p => ({ ...p, handshakeStatus: 'none', handshakeId: null }))

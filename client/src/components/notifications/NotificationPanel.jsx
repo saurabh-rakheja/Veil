@@ -4,6 +4,8 @@ import { useAuth } from '@clerk/clerk-react'
 import { useUI } from '../../context/UIContext'
 import { useSocket } from '../../context/SocketContext'
 
+const API = import.meta.env.VITE_API_URL
+
 function timeAgo(date) {
   const s = Math.floor((Date.now() - new Date(date)) / 1000)
   if (s < 60)    return `${s}s ago`
@@ -59,7 +61,7 @@ export default function NotificationPanel({ onUnreadChange }) {
     async function load() {
       try {
         const token = await getToken()
-        const res   = await fetch('/api/notifications?limit=30', {
+        const res   = await fetch(`${API}/api/notifications?limit=30`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok) { const data = await res.json(); setNotifications(data.notifications ?? []) }
@@ -92,7 +94,7 @@ export default function NotificationPanel({ onUnreadChange }) {
   const markAllRead = useCallback(async () => {
     try {
       const token = await getToken()
-      await fetch('/api/notifications/read-all', {
+      await fetch(`${API}/api/notifications/read-all`, {
         method: 'PATCH', headers: { Authorization: `Bearer ${token}` },
       })
       setNotifications(prev => prev.map(n => ({ ...n, isRead: true })))
@@ -103,7 +105,7 @@ export default function NotificationPanel({ onUnreadChange }) {
   const markOneRead = useCallback(async (id) => {
     try {
       const token = await getToken()
-      await fetch(`/api/notifications/${id}/read`, {
+      await fetch(`${API}/api/notifications/${id}/read`, {
         method: 'PATCH', headers: { Authorization: `Bearer ${token}` },
       })
       setNotifications(prev => prev.map(n => n._id === id ? { ...n, isRead: true } : n))

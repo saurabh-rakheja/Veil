@@ -8,6 +8,8 @@ import ConsentMiniCard  from '../../components/chat/ConsentMiniCard'
 import ReportModal      from '../../components/reporting/ReportModal'
 import UserDetailModal  from '../../components/chat/UserDetailModal'
 
+const API = import.meta.env.VITE_API_URL
+
 function formatTime(d) {
   return new Date(d).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 }
@@ -57,8 +59,8 @@ export default function ChatPage() {
         const token   = await getToken()
         const headers = { Authorization: `Bearer ${token}` }
         const [connsRes, msgsRes] = await Promise.all([
-          fetch('/api/connections/mine', { headers }),
-          fetch(`/api/messages/${roomId}`, { headers }),
+          fetch(`${API}/api/connections/mine`, { headers }),
+          fetch(`${API}/api/messages/${roomId}`, { headers }),
         ])
         if (connsRes.ok) {
           const { connections } = await connsRes.json()
@@ -82,7 +84,7 @@ export default function ChatPage() {
     const markRead = async () => {
       try {
         const token = await getToken()
-        await fetch(`/api/messages/${connectionId}/read`, {
+        await fetch(`${API}/api/messages/${connectionId}/read`, {
           method: 'PATCH', headers: { Authorization: `Bearer ${token}` },
         })
       } catch (e) { console.error('[Chat] mark read:', e) }
@@ -136,7 +138,7 @@ export default function ChatPage() {
     setInput(''); inputRef.current?.focus()
     try {
       const token = await getToken()
-      const res = await fetch('/api/messages', {
+      const res = await fetch(`${API}/api/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ conversationId: connectionId, content: text, recipientId }),
@@ -158,7 +160,7 @@ export default function ChatPage() {
     setMenuOpen(false)
     try {
       const token = await getToken()
-      await fetch('/api/reports/block', {
+      await fetch(`${API}/api/reports/block`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ blockedUserId: connection.otherUserId }),
@@ -172,7 +174,7 @@ export default function ChatPage() {
     setUnmatching(true)
     try {
       const token = await getToken()
-      await fetch(`/api/connections/${connectionId}/unmatch`, {
+      await fetch(`${API}/api/connections/${connectionId}/unmatch`, {
         method: 'POST', headers: { Authorization: `Bearer ${token}` },
       })
       setUnmatchOpen(false)

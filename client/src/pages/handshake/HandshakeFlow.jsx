@@ -7,6 +7,8 @@ import HandshakeStep2 from './HandshakeStep2'
 import HandshakeStep5 from './HandshakeStep5'
 import styles from './HandshakeFlow.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function HandshakeFlow() {
   const { recipientId } = useParams()
   const navigate        = useNavigate()
@@ -26,7 +28,7 @@ export default function HandshakeFlow() {
     async function init() {
       try {
         const token = await getToken()
-        const res   = await fetch(`/api/users/${recipientId}/public`, {
+        const res   = await fetch(`${API}/api/users/${recipientId}/public`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (!res.ok) throw new Error('Not found')
@@ -56,7 +58,7 @@ export default function HandshakeFlow() {
     setLoading(true)
     try {
       const token = await getToken()
-      const res   = await fetch('/api/handshake/initiate', {
+      const res   = await fetch(`${API}/api/handshake/initiate`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body:    JSON.stringify({ recipientId, introductionMessage: message }),
@@ -78,7 +80,7 @@ export default function HandshakeFlow() {
 
   async function handleWithdraw(id) {
     const token = await getToken()
-    await fetch(`/api/handshake/${id}/withdraw`, {
+    await fetch(`${API}/api/handshake/${id}/withdraw`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
     })

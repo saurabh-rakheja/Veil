@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useSignUp, useAuth } from '@clerk/clerk-react'
 import { useNavigate, Link } from 'react-router-dom'
 
+const API = import.meta.env.VITE_API_URL
+
 function LoomMark({ size = 36 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" fill="none" style={{ flex: 'none' }}>
@@ -100,7 +102,7 @@ export default function SignupPage() {
     if (!trimmed) return
     setInviteStatus('validating'); setInviteMsg('')
     try {
-      const res = await fetch('/api/invites/validate', {
+      const res = await fetch(`${API}/api/invites/validate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: trimmed }),
@@ -136,7 +138,7 @@ export default function SignupPage() {
         await setActive({ session: result.createdSessionId })
         try {
           const token = await getToken()
-          await fetch('/api/invites/redeem', {
+          await fetch(`${API}/api/invites/redeem`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
             body: JSON.stringify({ code: inviteCode.trim().toUpperCase() }),

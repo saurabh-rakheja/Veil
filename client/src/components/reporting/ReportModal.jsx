@@ -4,6 +4,8 @@ import { useAuth } from '@clerk/clerk-react'
 import { X, CheckCircle2, AlertTriangle } from 'lucide-react'
 import styles from './ReportModal.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 const CATEGORIES = [
   { value: 'fake_or_bot',       label: 'Fake or bot account',              priority: false },
   { value: 'harassment',        label: 'Harassment or abusive behaviour',   priority: false },
@@ -59,7 +61,7 @@ export default function ReportModal({ open, onOpenChange, reportedUserId, conten
     setLoading(true)
     try {
       const token = await getToken()
-      const res   = await fetch('/api/reports', {
+      const res   = await fetch(`${API}/api/reports`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ reportedUserId, contentType, contentId, category, detail }),
@@ -81,7 +83,7 @@ export default function ReportModal({ open, onOpenChange, reportedUserId, conten
     setBlocking(true)
     try {
       const token = await getToken()
-      await fetch('/api/reports/block', {
+      await fetch(`${API}/api/reports/block`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ blockedUserId: reportedUserId }),

@@ -6,6 +6,8 @@ import { useSocket }        from '../../context/SocketContext'
 import { useCurrentUser }   from '../../hooks/useCurrentUser'
 import { useNotifications } from '../../context/NotificationContext'
 
+const API = import.meta.env.VITE_API_URL
+
 /* ── Icons ── */
 const Ico = ({ d, size = 18, children }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -100,11 +102,11 @@ function Thread({ conv, pinned, onPin, onBlock, onToast, onClose }) {
     async function init() {
       try {
         const token = await getToken()
-        const res = await fetch(`/api/messages/${roomId}`, {
+        const res = await fetch(`${API}/api/messages/${roomId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok) { const d = await res.json(); setMessages(d.messages || []) }
-        await fetch(`/api/messages/${conv.connectionId}/read`, {
+        await fetch(`${API}/api/messages/${conv.connectionId}/read`, {
           method: 'PATCH', headers: { Authorization: `Bearer ${token}` },
         })
       } catch { /* non-critical */ }
@@ -138,7 +140,7 @@ function Thread({ conv, pinned, onPin, onBlock, onToast, onClose }) {
     setInput(''); inputRef.current?.focus()
     try {
       const token = await getToken()
-      const res = await fetch('/api/messages', {
+      const res = await fetch(`${API}/api/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ conversationId: conv.connectionId, content: text, recipientId: conv.otherUserId }),
@@ -324,9 +326,9 @@ export default function ChatsPage() {
         const token = await getToken()
         const headers = { Authorization: `Bearer ${token}` }
         const [convsRes, pendRes, blockRes] = await Promise.all([
-          fetch('/api/messages/conversations',  { headers }),
-          fetch('/api/handshake/pending',        { headers }),
-          fetch('/api/reports/block',            { headers }),
+          fetch(`${API}/api/messages/conversations`,  { headers }),
+          fetch(`${API}/api/handshake/pending`,        { headers }),
+          fetch(`${API}/api/reports/block`,            { headers }),
         ])
         if (convsRes.ok) { const d = await convsRes.json(); setConversations(d.conversations || []) }
         if (pendRes.ok)  { const d = await pendRes.json();  setPending(Array.isArray(d) ? d : []) }
@@ -342,7 +344,7 @@ export default function ChatsPage() {
   async function unblockUser(blockedUserId) {
     try {
       const token = await getToken()
-      await fetch(`/api/reports/block/${blockedUserId}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+      await fetch(`${API}/api/reports/block/${blockedUserId}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
       setBlocked(p => p.filter(b => b.blockedUserId !== blockedUserId))
       showToast('User unblocked')
     } catch { /* non-critical */ }
@@ -351,7 +353,7 @@ export default function ChatsPage() {
   async function blockUser(otherUserId, displayName) {
     try {
       const token = await getToken()
-      await fetch('/api/reports/block', {
+      await fetch(`${API}/api/reports/block`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ blockedUserId: otherUserId }),

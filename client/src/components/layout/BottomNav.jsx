@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 
+const API = import.meta.env.VITE_API_URL
+
 const Ic = (d) => (p) => (
   <svg width={p.size||22} height={p.size||22} viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -22,7 +24,7 @@ export default function BottomNav() {
     async function fetchPending() {
       try {
         const token = await getToken()
-        const res   = await fetch('/api/handshake/pending', {
+        const res   = await fetch(`${API}/api/handshake/pending`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok && !cancelled) {

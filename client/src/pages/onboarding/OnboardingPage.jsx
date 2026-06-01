@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 
+const API = import.meta.env.VITE_API_URL
+
 /* ── Shared icons ── */
 const Ico = ({ d, size = 18, children }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -290,7 +292,7 @@ function SetupPhase({ onDone, getToken }) {
     try {
       const token = await getToken()
       if (data.role || data.kinks.length || data.bio) {
-        await fetch('/api/consent-profile', {
+        await fetch(`${API}/api/consent-profile`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
           body: JSON.stringify({
@@ -301,7 +303,7 @@ function SetupPhase({ onDone, getToken }) {
         })
       }
       if (data.bio) {
-        await fetch('/api/users/profile', {
+        await fetch(`${API}/api/users/profile`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
           body: JSON.stringify({ bio: data.bio }),

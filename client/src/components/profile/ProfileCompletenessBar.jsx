@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 
+const API = import.meta.env.VITE_API_URL
+
 const WEIGHTS = { displayName: 20, city: 20, bio: 15, interests: 25, limits: 20 }
 const LABELS  = { displayName: 'display name', city: 'city', bio: 'bio', interests: '3+ interests', limits: '1+ limit' }
 
@@ -36,8 +38,8 @@ export default function ProfileCompletenessBar() {
         const token   = await getToken()
         const headers = { Authorization: `Bearer ${token}` }
         const [profileRes, consentRes] = await Promise.all([
-          fetch('/api/users/profile',   { headers }),
-          fetch('/api/consent-profile', { headers }),
+          fetch(`${API}/api/users/profile`,   { headers }),
+          fetch(`${API}/api/consent-profile`, { headers }),
         ])
         const p = profileRes.ok ? (await profileRes.json()).profile  || {} : {}
         const c = consentRes.ok ? (await consentRes.json()).profile  || {} : {}

@@ -7,6 +7,8 @@ import ProfilePopup from '../../components/discovery/ProfilePopup'
 import FilterPanel from '../../components/discovery/FilterPanel'
 import ProfileCompletenessBar from '../../components/profile/ProfileCompletenessBar'
 
+const API = import.meta.env.VITE_API_URL
+
 const DEFAULT_FILTERS = {
   city: '', experienceLevel: [], lookingFor: [], minCompatibility: 0,
 }
@@ -74,7 +76,7 @@ export default function DiscoveryPage() {
       const token = await getToken()
       if (!token) { done(false); return }
       const params = buildParams(filters, cursor)
-      const res = await fetch(`/api/discovery${params ? `?${params}` : ''}`, {
+      const res = await fetch(`${API}/api/discovery${params ? `?${params}` : ''}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       if (res.status === 401) { done(false); return }

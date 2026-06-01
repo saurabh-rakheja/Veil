@@ -6,6 +6,8 @@ import {
   TierPill, LF_LABELS, EXP_LABELS, TIER_COLOR, tierFromVerification,
 } from './ProfileCard'
 
+const API = import.meta.env.VITE_API_URL
+
 /* ── Icons ── */
 const Ico = ({ d, size = 18, children }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -169,7 +171,7 @@ export default function ProfilePopup({ user, onClose, requested, onRequestSent }
     let cancelled = false
     getToken().then(token => {
       if (!token) return
-      fetch(`/api/users/${user.userId}/public`, {
+      fetch(`${API}/api/users/${user.userId}/public`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(r => r.ok ? r.json() : null)
@@ -208,7 +210,7 @@ export default function ProfilePopup({ user, onClose, requested, onRequestSent }
     setApiError('')
     try {
       const token = await getToken()
-      const res   = await fetch('/api/handshake/initiate', {
+      const res   = await fetch(`${API}/api/handshake/initiate`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body:    JSON.stringify({ recipientId: user.userId, introductionMessage: note }),
