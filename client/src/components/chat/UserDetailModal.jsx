@@ -5,6 +5,8 @@ import { X, MapPin, AlertOctagon } from 'lucide-react'
 import { toSvg } from 'jdenticon'
 import styles from './UserDetailModal.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function UserDetailModal({ userId, onClose, onReport }) {
   const { getToken } = useAuth()
   const navigate = useNavigate()
@@ -17,7 +19,7 @@ export default function UserDetailModal({ userId, onClose, onReport }) {
     async function fetchProfile() {
       try {
         const token = await getToken()
-        const res = await fetch(`/api/users/${userId}/public`, {
+        const res = await fetch(`${API}/api/users/${userId}/public`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok) setProfile(await res.json())

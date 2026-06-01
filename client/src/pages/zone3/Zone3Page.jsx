@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 import styles from './Zone3Page.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function Zone3Page() {
   const navigate    = useNavigate()
   const { getToken } = useAuth()
@@ -13,7 +15,7 @@ export default function Zone3Page() {
     async function verify() {
       try {
         const token = await getToken()
-        const res   = await fetch('/api/users/profile', {
+        const res   = await fetch(`${API}/api/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok) {

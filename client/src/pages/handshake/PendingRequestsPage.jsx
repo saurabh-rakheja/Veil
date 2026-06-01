@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 import * as jdenticon from 'jdenticon'
 
+const API = import.meta.env.VITE_API_URL
+
 function JdenticonAvatar({ userId, size = 46 }) {
   const ref = useRef(null)
   useEffect(() => { if (ref.current) jdenticon.update(ref.current, userId) }, [userId])
@@ -27,7 +29,7 @@ export default function PendingRequestsPage() {
     async function load() {
       try {
         const token = await getToken()
-        const res   = await fetch('/api/handshake/pending', {
+        const res   = await fetch(`${API}/api/handshake/pending`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (!res.ok) throw new Error()

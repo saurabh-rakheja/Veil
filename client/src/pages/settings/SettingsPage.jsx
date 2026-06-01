@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth, useClerk } from '@clerk/clerk-react'
 
+const API = import.meta.env.VITE_API_URL
+
 const DEFAULT_VISIBILITY = {
   displayName: 'public', city: 'connected', experienceLevel: 'connected',
   lookingFor: 'connected', interests: 'connected', limits: 'trusted',
@@ -120,9 +122,9 @@ export default function SettingsPage() {
       const token = await getToken()
       const headers = { Authorization: `Bearer ${token}` }
       const [profileRes, consentRes, blocksRes] = await Promise.all([
-        fetch('/api/users/profile',   { headers }),
-        fetch('/api/consent-profile', { headers }),
-        fetch('/api/reports/block',   { headers }),
+        fetch(`${API}/api/users/profile`,   { headers }),
+        fetch(`${API}/api/consent-profile`, { headers }),
+        fetch(`${API}/api/reports/block`,   { headers }),
       ])
       if (profileRes.ok) {
         const { profile: p } = await profileRes.json()
@@ -159,7 +161,7 @@ export default function SettingsPage() {
     setProfileSaving(true); setProfileError(''); setProfileSaved(false)
     try {
       const token = await getToken()
-      const res = await fetch('/api/users/profile', {
+      const res = await fetch(`${API}/api/users/profile`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
@@ -178,7 +180,7 @@ export default function SettingsPage() {
     setVisSaving(true); setVisError(''); setVisSaved(false)
     try {
       const token = await getToken()
-      const res = await fetch('/api/consent-profile', {
+      const res = await fetch(`${API}/api/consent-profile`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ visibilitySettings: visibility }),
@@ -193,7 +195,7 @@ export default function SettingsPage() {
     setUnblocking(blockedUserId)
     try {
       const token = await getToken()
-      await fetch(`/api/reports/block/${blockedUserId}`, {
+      await fetch(`${API}/api/reports/block/${blockedUserId}`, {
         method: 'DELETE', headers: { Authorization: `Bearer ${token}` },
       })
       setBlocked(prev => prev.filter(b => b.blockedUserId !== blockedUserId))
@@ -205,7 +207,7 @@ export default function SettingsPage() {
     setExporting(true)
     try {
       const token = await getToken()
-      const res   = await fetch('/api/users/data-export', {
+      const res   = await fetch(`${API}/api/users/data-export`, {
         method: 'POST', headers: { Authorization: `Bearer ${token}` },
       })
       if (!res.ok) return
@@ -223,7 +225,7 @@ export default function SettingsPage() {
     setDeleting(true); setDeleteError(null)
     try {
       const token = await getToken()
-      const res   = await fetch('/api/users/delete-account', {
+      const res   = await fetch(`${API}/api/users/delete-account`, {
         method: 'POST', headers: { Authorization: `Bearer ${token}` },
       })
       const data = await res.json()

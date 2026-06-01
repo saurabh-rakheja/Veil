@@ -4,6 +4,8 @@ import { useAuth } from '@clerk/clerk-react'
 import { useUI } from '../../context/UIContext'
 import { useNotifications } from '../../context/NotificationContext'
 
+const API = import.meta.env.VITE_API_URL
+
 function timeAgo(dateStr) {
   if (!dateStr) return ''
   const diff = Date.now() - new Date(dateStr)
@@ -40,8 +42,8 @@ export default function ConversationsPanel() {
         const token   = await getToken()
         const headers = { Authorization: `Bearer ${token}` }
         const [pendRes, convsRes] = await Promise.all([
-          fetch('/api/handshake/pending',      { headers }),
-          fetch('/api/messages/conversations', { headers }),
+          fetch(`${API}/api/handshake/pending`,      { headers }),
+          fetch(`${API}/api/messages/conversations`, { headers }),
         ])
         if (pendRes.ok)  { const d = await pendRes.json();  setPendingCount(d.length) }
         if (convsRes.ok) { const d = await convsRes.json(); setConversations(d.conversations || []) }

@@ -4,6 +4,8 @@ import { useAuth } from '@clerk/clerk-react'
 import { Lock } from 'lucide-react'
 import styles from './Zone3Gate.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function Zone3Gate() {
   const navigate    = useNavigate()
   const { getToken } = useAuth()
@@ -18,7 +20,7 @@ export default function Zone3Gate() {
     setError('')
     try {
       const token = await getToken()
-      const res   = await fetch('/api/users/zone3-opt-in', {
+      const res   = await fetch(`${API}/api/users/zone3-opt-in`, {
         method:  'POST',
         headers: { Authorization: `Bearer ${token}` },
       })

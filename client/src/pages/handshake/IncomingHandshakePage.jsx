@@ -6,6 +6,8 @@ import HandshakeStep3 from './HandshakeStep3'
 import HandshakeStep4 from './HandshakeStep4'
 import styles from './IncomingHandshakePage.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function IncomingHandshakePage() {
   const { handshakeId } = useParams()
   const navigate        = useNavigate()
@@ -22,7 +24,7 @@ export default function IncomingHandshakePage() {
     async function load() {
       try {
         const token = await getToken()
-        const res   = await fetch(`/api/handshake/${handshakeId}`, {
+        const res   = await fetch(`${API}/api/handshake/${handshakeId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
@@ -40,7 +42,7 @@ export default function IncomingHandshakePage() {
     setAccepting(true)
     try {
       const token = await getToken()
-      const res   = await fetch(`/api/handshake/${handshakeId}/accept`, {
+      const res   = await fetch(`${API}/api/handshake/${handshakeId}/accept`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -57,7 +59,7 @@ export default function IncomingHandshakePage() {
     setDeclining(true)
     try {
       const token = await getToken()
-      await fetch(`/api/handshake/${handshakeId}/decline`, {
+      await fetch(`${API}/api/handshake/${handshakeId}/decline`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       })

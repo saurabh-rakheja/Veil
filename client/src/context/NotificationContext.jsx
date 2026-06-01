@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect, useCallback, useRef } f
 import { useAuth } from '@clerk/clerk-react'
 import { useSocket } from './SocketContext'
 
+const API = import.meta.env.VITE_API_URL
+
 const NotificationContext = createContext(null)
 
 export function NotificationProvider({ children }) {
@@ -106,7 +108,7 @@ export function NotificationProvider({ children }) {
     const load = async () => {
       try {
         const token = await getToken()
-        const res   = await fetch('/api/messages/unread-counts', {
+        const res   = await fetch(`${API}/api/messages/unread-counts`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         const data = await res.json()

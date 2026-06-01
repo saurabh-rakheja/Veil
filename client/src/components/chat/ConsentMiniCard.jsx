@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import { ChevronDown, ChevronUp, Hexagon } from 'lucide-react'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function ConsentMiniCard({ connectionId }) {
   const { getToken } = useAuth()
   const storageKey   = `consentCard_collapsed_${connectionId}`
@@ -13,7 +15,7 @@ export default function ConsentMiniCard({ connectionId }) {
     async function fetchCompat() {
       try {
         const token = await getToken()
-        const res   = await fetch(`/api/connections/${connectionId}/compatibility`, {
+        const res   = await fetch(`${API}/api/connections/${connectionId}/compatibility`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok) setData(await res.json())

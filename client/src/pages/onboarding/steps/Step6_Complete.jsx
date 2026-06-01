@@ -3,6 +3,8 @@ import { User, Compass, Info } from 'lucide-react'
 import { useAuth } from '@clerk/clerk-react'
 import styles from './Steps.module.css'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function Step6_Complete() {
   const { getToken } = useAuth()
   const [saving, setSaving] = useState(false)
@@ -14,7 +16,7 @@ export default function Step6_Complete() {
     try {
       console.log('[Step6] marking profile complete...')
       const token = await getToken()
-      const res = await fetch('/api/consent-profile', {
+      const res = await fetch(`${API}/api/consent-profile`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

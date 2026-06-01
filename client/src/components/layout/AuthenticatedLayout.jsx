@@ -6,6 +6,8 @@ import { useCurrentUser } from '../../hooks/useCurrentUser'
 import { useNotifications } from '../../context/NotificationContext'
 import BottomNav from './BottomNav'
 
+const API = import.meta.env.VITE_API_URL
+
 /* ── Brand mark ── */
 function LoomMark({ size = 34 }) {
   return (
@@ -89,7 +91,7 @@ export default function AuthenticatedLayout() {
     if (!userId) return
     getToken().then(token => {
       if (!token) return
-      fetch('/api/notifications/unread-count', { headers: { Authorization: `Bearer ${token}` } })
+      fetch(`${API}/api/notifications/unread-count`, { headers: { Authorization: `Bearer ${token}` } })
         .then(r => r.ok ? r.json() : null)
         .then(d => d && setNotifCount(d.count || 0))
         .catch(() => {})
@@ -101,7 +103,7 @@ export default function AuthenticatedLayout() {
     if (!userId) return
     getToken().then(token => {
       if (!token) return
-      fetch('/api/handshake/pending', { headers: { Authorization: `Bearer ${token}` } })
+      fetch(`${API}/api/handshake/pending`, { headers: { Authorization: `Bearer ${token}` } })
         .then(r => r.ok ? r.json() : [])
         .then(d => setPendingReq(Array.isArray(d) ? d.length : 0))
         .catch(() => {})

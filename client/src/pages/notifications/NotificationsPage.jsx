@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 
+const API = import.meta.env.VITE_API_URL
+
 function timeAgo(d) {
   const s = Math.floor((Date.now() - new Date(d)) / 1000)
   if (s < 60) return `${s}s`; if (s < 3600) return `${Math.floor(s/60)}m`
@@ -50,7 +52,7 @@ export default function NotificationsPage() {
     async function load() {
       try {
         const token = await getToken()
-        const res   = await fetch('/api/notifications?limit=50', {
+        const res   = await fetch(`${API}/api/notifications?limit=50`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         if (res.ok) { const d = await res.json(); setNotes(d.notifications ?? []) }
@@ -63,7 +65,7 @@ export default function NotificationsPage() {
   const markAll = useCallback(async () => {
     try {
       const token = await getToken()
-      await fetch('/api/notifications/read-all', { method: 'PATCH', headers: { Authorization: `Bearer ${token}` } })
+      await fetch(`${API}/api/notifications/read-all`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` } })
       setNotes(p => p.map(n => ({ ...n, isRead: true })))
     } catch { /* non-critical */ }
   }, [getToken])
@@ -71,7 +73,7 @@ export default function NotificationsPage() {
   async function markOne(id) {
     try {
       const token = await getToken()
-      await fetch(`/api/notifications/${id}/read`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` } })
+      await fetch(`${API}/api/notifications/${id}/read`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` } })
       setNotes(p => p.map(n => n._id === id ? { ...n, isRead: true } : n))
     } catch { /* non-critical */ }
   }
