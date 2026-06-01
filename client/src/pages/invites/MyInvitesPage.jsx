@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 
 const FREE_TIER_LIMIT = 5
+const API = import.meta.env.VITE_API_URL
 
 export default function MyInvitesPage() {
   const { getToken } = useAuth()
@@ -14,7 +15,7 @@ export default function MyInvitesPage() {
   const fetchCodes = useCallback(async () => {
     try {
       const token = await getToken()
-      const res   = await fetch('/api/invites/mine', {
+      const res   = await fetch(`${API}/api/invites/mine`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       if (res.ok) { const data = await res.json(); setCodes(data.codes || []) }
@@ -28,7 +29,7 @@ export default function MyInvitesPage() {
     setGenerating(true); setGenError('')
     try {
       const token = await getToken()
-      const res   = await fetch('/api/invites/generate', {
+      const res   = await fetch(`${API}/api/invites/generate`, {
         method: 'POST', headers: { Authorization: `Bearer ${token}` },
       })
       const data = await res.json()
