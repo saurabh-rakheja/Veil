@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 
+const API = import.meta.env.VITE_API_URL
+
 const ONBOARDING_PATH = '/onboarding'
 
 export default function ProtectedRoute() {
@@ -36,7 +38,7 @@ export default function ProtectedRoute() {
         }
 
         const res = await fetch(
-          `/api/consent-profile?t=${Date.now()}`,
+          `${API}/api/consent-profile?t=${Date.now()}`,
           {
             headers: { Authorization: `Bearer ${token}` },
             cache: 'no-store',

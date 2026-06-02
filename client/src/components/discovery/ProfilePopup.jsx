@@ -245,7 +245,7 @@ export default function ProfilePopup({ user, onClose, requested, onRequestSent }
             <div className="pp-herowrap">
               <div className="pp-hero">
                 {u.hasProfilePhoto
-                  ? <img src={`/api/media/${user.userId}/avatar`} alt={alias}
+                  ? <img src={`${API}/api/media/${user.userId}/avatar`} alt={alias}
                       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}/>
                   : <AnonymousArt/>
                 }

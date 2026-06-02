@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const API = import.meta.env.VITE_API_URL
+
 /* ────────────────────────────────────────────────────────────────────
    Identity art — deterministic gradient mesh + woven thread overlay
    Ports the design's WovenArt / AnonymousArt from data.jsx exactly
@@ -95,7 +97,7 @@ function PhotoAvatar({ userId, size = 62, ring = false, ringColor }) {
         width: size, height: size,
         boxShadow: ring ? `0 0 0 2px var(--surface-1), 0 0 0 4px ${rc}` : 'none',
       }}>
-        <img src={`/api/media/${userId}/avatar`} alt=""
+        <img src={`${API}/api/media/${userId}/avatar`} alt=""
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}/>
       </div>
     </div>
@@ -159,7 +161,7 @@ export default function ProfileCard({ user, index = 0, onOpen }) {
       {/* ── Media area (WovenArt identity or photo) ── */}
       <div className="disc-media">
         {hasProfilePhoto
-          ? <img src={`/api/media/${userId}/avatar`} alt={alias}
+          ? <img src={`${API}/api/media/${userId}/avatar`} alt={alias}
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}/>
           : <AnonymousArt/>
         }
