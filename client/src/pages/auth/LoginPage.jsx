@@ -122,9 +122,13 @@ export default function LoginPage() {
       if (result.status === 'needs_new_password') {
         setError('You need to reset your password. Use Forgot password below.'); return
       }
-      setError('Sign in could not be completed. Please try again.')
+      // Any other status is unexpected — surface it instead of masking it.
+      setError(`Sign in couldn't be completed (status: ${result.status}).`)
     } catch (err) {
-      const raw = err.errors?.[0]?.longMessage || err.errors?.[0]?.message || 'Sign in failed.'
+      // Surface Clerk's actual error so real problems (wrong password, etc.)
+      // are visible to the user rather than hidden behind a generic message.
+      const clerkErr = err?.errors?.[0]
+      const raw = clerkErr?.message || clerkErr?.longMessage || 'Sign in failed.'
       setError(raw.replace(/^clerk:\s*/i, ''))
     } finally { setLoading(false) }
   }
