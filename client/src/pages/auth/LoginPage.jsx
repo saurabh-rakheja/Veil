@@ -115,6 +115,12 @@ export default function LoginPage() {
         } catch { /* code may already be sent */ }
         setStep('otp'); return
       }
+      if (result.status === 'needs_client_trust') {
+        // New device: Clerk requires a device-trust challenge (handled via the
+        // second-factor email code) before the sign-in can proceed.
+        try { await signIn.prepareSecondFactor({ strategy: 'email_code' }) } catch { /* ok */ }
+        setStep('otp'); return
+      }
       if (result.status === 'needs_second_factor') {
         try { await signIn.prepareSecondFactor({ strategy: 'email_code' }) } catch { /* ok */ }
         setStep('otp'); return
@@ -147,7 +153,7 @@ export default function LoginPage() {
 
   async function handleResendOTP() {
     try {
-      if (signIn.status === 'needs_second_factor') {
+      if (signIn.status === 'needs_second_factor' || signIn.status === 'needs_client_trust') {
         await signIn.prepareSecondFactor({ strategy: 'email_code' })
       } else {
         const ef = signIn.supportedFirstFactors?.find(f => f.strategy === 'email_code')
@@ -275,6 +281,9 @@ export default function LoginPage() {
 
           {successMsg && <div style={{ color: 'var(--teal)', fontSize: 13, marginTop: 8 }}>{successMsg}</div>}
           {error      && <div style={{ color: 'var(--danger)', fontSize: 13, marginTop: 8 }}>{error}</div>}
+
+          {/* Clerk bot-protection (CAPTCHA) renders here during signIn.create */}
+          <div id="clerk-captcha" />
 
           <button type="submit" className="onb-btn" disabled={loading || !isLoaded}>
             {loading ? <LoadingDots/> : <>Sign in <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></>}
