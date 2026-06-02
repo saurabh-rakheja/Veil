@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
 
 const API = import.meta.env.VITE_API_URL
@@ -377,7 +376,6 @@ function SetupPhase({ onDone, getToken }) {
 
 /* ── Main onboarding component ── */
 export default function OnboardingPage() {
-  const navigate           = useNavigate()
   const { isLoaded, getToken } = useAuth()
   const [phase, setPhase]  = useState('setup')  // 'setup' | 'story'
 
@@ -387,8 +385,24 @@ export default function OnboardingPage() {
     </div>
   )
 
-  function finish() {
-    navigate('/', { replace: true })
+  async function finish() {
+    // Final onboarding step: mark the profile complete on the backend, which
+    // records onboardingComplete in the user's Clerk publicMetadata — the route
+    // guard's source of truth. We then hard-reload so Clerk re-reads the fresh
+    // metadata before ProtectedRoute evaluates it; a client-side navigate would
+    // race ahead of the metadata refresh and bounce the user back to onboarding.
+    try {
+      const token = await getToken()
+      const res = await fetch(`${API}/api/consent-profile`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ isComplete: true, completedAt: new Date().toISOString() }),
+      })
+      if (!res.ok) throw new Error('Failed to finalize onboarding')
+    } catch (err) {
+      console.error('[onboarding] failed to finalize:', err)
+    }
+    window.location.replace('/')
   }
 
   return (
