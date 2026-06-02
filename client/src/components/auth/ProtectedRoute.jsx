@@ -1,85 +1,13 @@
-import { useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAuth } from '@clerk/clerk-react'
-
-const API = import.meta.env.VITE_API_URL
+import { useUser } from '@clerk/clerk-react'
 
 const ONBOARDING_PATH = '/onboarding'
 
 export default function ProtectedRoute() {
-  const { isLoaded, isSignedIn, getToken, userId } = useAuth()
+  const { isLoaded, isSignedIn, user } = useUser()
   const location = useLocation()
 
-  const [status, setStatus] = useState('loading')
-
-  useEffect(() => {
-    if (!isLoaded) return
-
-    if (!isSignedIn) {
-      setStatus('unauth')
-      return
-    }
-
-    const currentPath = location.pathname
-    const skipPaths = ['/onboarding', '/settings']
-    if (skipPaths.some(p => currentPath.startsWith(p))) {
-      setStatus('ok')
-      return
-    }
-
-    let cancelled = false
-
-    const checkProfile = async () => {
-      try {
-        const token = await getToken()
-        if (!token) {
-          if (!cancelled) setStatus('ok')
-          return
-        }
-
-        const res = await fetch(
-          `${API}/api/consent-profile?t=${Date.now()}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-            cache: 'no-store',
-          }
-        )
-
-        if (!res.ok) {
-          if (!cancelled) setStatus('ok')
-          return
-        }
-
-        const data = await res.json()
-        console.log('[ProtectedRoute]', {
-          path: currentPath,
-          exists: data.exists,
-          isComplete: data.profile?.isComplete,
-        })
-
-        if (cancelled) return
-
-        if (!data.exists || data.profile?.isComplete !== true) {
-          setStatus('onboarding')
-          return
-        }
-
-        setStatus('ok')
-      } catch (err) {
-        console.error('[ProtectedRoute] error:', err)
-        if (!cancelled) setStatus('ok')
-      }
-    }
-
-    checkProfile()
-    return () => { cancelled = true }
-
-    // location.pathname intentionally omitted — re-running on every navigation
-    // causes loops. Path is read at execution time via currentPath.
-    // /settings and /onboarding skip the check entirely.
-  }, [isLoaded, isSignedIn, userId]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  if (status === 'loading') {
+  if (!isLoaded) {
     return (
       <div style={{
         display: 'flex',
@@ -103,14 +31,23 @@ export default function ProtectedRoute() {
     )
   }
 
-  if (status === 'unauth') {
+  if (!isSignedIn) {
     return <Navigate to="/login" replace state={{ from: location }} />
   }
 
-  if (status === 'onboarding') {
-    // Already at onboarding — render it directly instead of looping through Navigate
-    if (location.pathname === ONBOARDING_PATH) return <Outlet />
-    return <Navigate to="/onboarding" replace />
+  // Onboarding completion is the source of truth in Clerk publicMetadata, set
+  // by the backend when the final onboarding step is finished. We read it
+  // directly here instead of fetching /consent-profile, which previously caused
+  // a redirect loop (a freshly-completed user kept being sent back to onboarding
+  // while the backend read raced behind the just-saved state).
+  const onboardingComplete = user?.publicMetadata?.onboardingComplete === true
+
+  if (!onboardingComplete) {
+    // Let the user actually reach onboarding (to finish it) and settings
+    // (e.g. to delete their account) without bouncing.
+    const allowed = [ONBOARDING_PATH, '/settings'].some(p => location.pathname.startsWith(p))
+    if (allowed) return <Outlet />
+    return <Navigate to={ONBOARDING_PATH} replace />
   }
 
   return <Outlet />
